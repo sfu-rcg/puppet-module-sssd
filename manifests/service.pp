@@ -3,5 +3,6 @@ class sssd::service {
     ensure    => running,
     enable    => true,
     hasstatus => true,
+    subscribe => File['/etc/sssd/sssd.conf'],
   }
 }

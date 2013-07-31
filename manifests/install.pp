@@ -1,5 +1,5 @@
 class sssd::install {
-  package { $sssd::variables::pkg_list:
+  package { $sssd::params::pkg_list:
     ensure => present,
   }
 }
