@@ -3,11 +3,18 @@ class sssd::config (
   $services,
   ) {
 
+  file { '/etc/sssd':
+    ensure  => directory,
+    mode    => '0600',
+    owner   => 'root',
+    group   => 'root',
+  }
+
   concat { '/etc/sssd/sssd.conf':
     warn    => true,
     mode    => '0600',
-    owner	=> 'root',
-    group	=> 'root',
+    owner   => 'root',
+    group   => 'root',
   }
 
   concat::fragment { 'sssd.conf.base':
@@ -18,7 +25,6 @@ class sssd::config (
 
   case $::osfamily {
     debian: {
-
       # SSSD automount retrieval in autofs 5.0.7 is busted in Ubuntu
       # see https://bugs.launchpad.net/linuxmint/+bug/1081489 for a fix
       file { '/etc/auth-client-config/profile.d/sss':
@@ -34,6 +40,16 @@ class sssd::config (
     }
 
     redhat: {
+      if member($services, 'pam') {
+        exec { 'authconfig-enable-sssd':
+          command => '/usr/sbin/authconfig --enablesssd --enablesssdauth --update'
+        }
+      } else {
+        exec { 'authconfig-enable-sssd':
+          command => '/usr/sbin/authconfig --disablesssd --disablesssdauth --update'
+        }
+     }
+
       include autofs
       if member($services, 'autofs') {
         augeas { 'nsswitch.conf':
@@ -54,4 +70,3 @@ class sssd::config (
     }
   }
   }
-  

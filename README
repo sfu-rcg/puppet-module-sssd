@@ -1,36 +1,50 @@
-Sssd
-=======
+SSSD
+====
 
-This module configures SSSD, and authentication service that provides LDAP and KERBEROS facilities.
-It has been developed under Ubuntu 10.04.
+Original module Copyright (C) 2011 UNYONSYS SARL
+Bruno Leon <bruno.leon@unyonsys.com>
+https://github.com/Unyonsys/puppet-module-sssd
 
-It is able to setup:
-- sssd service
-- multiple authentication "domains"
+Additional patchwork from https://github.com/sfu-rcg/puppet-module-sssd
 
-Conventions
------------
-This modules is making user of standard Debian/Ubuntu tools for updating the pam stack, knowingly auth-client-config.
-It enforces SSL connection for querying LDAP, hence the dependency below.
+This module is focused on providing Active Directory/LDAP/Kerberos ID and auth services.
 
 Dependencies
 ------------
+* Concat: git://github.com/ripienaar/puppet-concat.git
+* Augeas
 
-* Concat git://github.com/ripienaar/puppet-concat.git
-* SSL module
-
-Contact
--------
-
-Bruno Leon <bruno.leon@unyonsys.com>
 
 License
 -------
-
 This software is distributed under the GNU General Public License
 version 2 or any later version. See the LICENSE file for details.
 
-Copyright
----------
 
-Copyright (C) 2011 UNYONSYS SARL
+SFU-RecentChanges
+-----------------
+2015:
+. Create /etc/sssd directory
+. On RHEL, use authconfig to enable sss in nsswitch.conf
+. Support for automounts served from Active Directory _without_ Server for NIS
+. New parameters: autofs debug level, ldap_use_tokengroups, access_provider, ldap_acess_filter
+. CentOS 6.6 dropped the package called libsss_autofs without warning so we no longer install it
+
+Tested on CentOS 6 and 7. No support for CentOS 5.
+
+Ubuntu/Debian: tested on 12.x. autofs support requires this stupid patch:
+  https://bugs.launchpad.net/linuxmint/+bug/1081489
+
+.. and early releases of 13 even required libsss_autofs.so to live in the root directory. I am not making this up.
+
+
+2013:
+. Support for Red Hat systems (CentOS 5+, Fedora 17+)
+. Removed LDAP/TLS support, added LDAP/SASL support
+. Extra Kerberos and LDAP parameters
+. Red Hat systems: SSSD/nsswitch hooks for using LDAP/AD-provided automounts
+
+Current Limitations
+-------------------
+. Assumes you've already joined the computer to AD (see https://github.com/sfu-rcg/puppet-adcli)
+. Assumes you want SASL binding, not TLS

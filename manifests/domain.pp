@@ -1,32 +1,101 @@
 define sssd::domain (
-  $debug_level		    = '5',
-  $krb_use_fast		    = 'try',
 
-  # Samba insists on using uppercase for the hostname when joining AD.
-  # Convert to uppercase or SSSD will complain principal machine$@AD.SFU.CA
-  # can't be found in keytab. Thanks, Riley!
-  $ldap_sasl_authid = inline_template("<%= hostname.upcase %>\$@AD.SFU.CA"),
+  $debug_level              = undef,
+  $autofs_debug_level       = undef,
+  $krb_use_fast             = undef,
+  $ldap_sasl_authid         = undef,
+  $krb5_renewable_lifetime  = undef,
+  $krb5_renew_interval 	      = undef,
+  $entry_cache_autofs_timeout = undef,
+  $autofs_provider            = undef,
+  $ldap_autofs_search_base    = undef,
+  $ldap_autofs_map_object_class   = undef,
+  $ldap_autofs_entry_object_class = undef,
+  $ldap_autofs_map_name       = undef,
+  $ldap_autofs_entry_key      = undef,
+  $ldap_autofs_entry_value    = undef,
+  $id_provider                = undef, # required
+  $auth_provider              = undef, # required
+  $cache_credentials          = undef,
+  $access_provider            = undef,
+  $ldap_access_filter         = undef,
+  $ldap_id_mapping            = undef, # required
+  $min_id                     = undef,
+  $max_id                     = undef,
+  $use_fqdn                   = undef,
+  $ldap_use_tokengroups       = undef, # for murmurhash3, not POSIX GIDs
+  $ldap_id_use_start_tls      = undef,
+  $ldap_sasl_mech             = undef,
+  $ldap_access_order          = undef,
+  $ldap_account_expire_policy = undef,
+  $ldap_schema                = undef,
+  ) {
 
+  #notify{"SASL binding to AD as $ldap_sasl_authid":;}
 
-  # don't use units EVER; assume seconds
-  # units will confuse authconfig on CentOS 6
-  $krb5_renewable_lifetime    = '86400',
-  $krb5_renew_interval 	      = '1800',
-  $entry_cache_autofs_timeout = '600',
-  $autofs_provider            = 'ldap',
-  $ldap_autofs_search_base    = '',
-  $ldap_autofs_map_object_class   = 'nisMap',
-  $ldap_autofs_entry_object_class = 'nisObject',
-  $ldap_autofs_map_name       = 'cn',
-  $ldap_autofs_entry_key      = 'nisMapName',
-  $ldap_autofs_entry_value    = 'nisMapEntry',  
-) {
+  case $::operatingsystem {
+    centos, rhel: {
+      case $::lsbmajdistrelease {
+        6, 7: {
+          concat::fragment { "sssd_domain_${name}":
+            target  => '/etc/sssd/sssd.conf',
+            order   => 05,
+            content => template("sssd/domain.erb"),
+          }
+        } # 6/7
+        default: {
+          fail('Platform not supported.')
+        }
+      } # lsbmajdistrelease
+    } # centos, rhel
 
-#notify{"SASL binding to AD as $ldap_sasl_authid":;}
+    fedora: {
+      case $::lsbmajdistrelease {
+        21: {
+          concat::fragment { "sssd_domain_${name}":
+            target  => '/etc/sssd/sssd.conf',
+            order   => 05,
+            content => template("sssd/domain.erb"),
+          }
+        } # 21
+        default: {
+          fail('Platform not supported.')
+        }
+      } # lsbmajdistrelease
+    } # fedora
 
-concat::fragment { "sssd_domain_${name}":
-    target  => '/etc/sssd/sssd.conf',
-    order   => 05,
-    content => template('sssd/domain.erb'),
-  }
+    ubuntu: {
+      case $::lsbmajdistrelease {
+        14: {
+          concat::fragment { "sssd_domain_${name}":
+            target  => '/etc/sssd/sssd.conf',
+            order   => 05,
+            content => template('sssd/domain.erb'),
+          }
+        } # 14
+        default: {
+          fail('Platform not supported.')
+        }
+      } # lsbmajdistrelease
+    } # ubuntu
+
+    debian: {
+      case $::lsbmajdistrelease {
+        7: {
+          concat::fragment { "sssd_domain_${name}":
+            target  => '/etc/sssd/sssd.conf',
+            order   => 05,
+            content => template('sssd/domain.erb'),
+          }
+        } # 7
+        default: {
+          fail('Platform not supported.')
+        } # default
+      } # lsbmajdistrelease
+    }
+
+    default: {
+      fail('Platform not supported.')
+    }
+  } # operatingsystem
 }

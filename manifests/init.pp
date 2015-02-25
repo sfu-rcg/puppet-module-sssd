@@ -8,6 +8,7 @@ class sssd (
   anchor { 'sssd::begin': }
   anchor { 'sssd::end': }
 
+# formerly puppet::end -- don't know why
 Anchor[ 'sssd::begin' ] -> class { 'sssd::install': } -> Class['sssd::config'] ~> class {'sssd::service': } -> Anchor[ 'sssd::end' ]
   
   class { 'sssd::config':

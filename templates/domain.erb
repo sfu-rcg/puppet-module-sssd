@@ -1,12 +1,56 @@
 [domain/<%= title %>]
-id_provider             = ldap
-auth_provider           = ldap
-ldap_schema             = <%= ldap_schema %>
-ldap_uri                = <%= ldap_uri %>
-ldap_search_base        = <%= ldap_search_base %>
-ldap_group_search_base  = <%= ldap_group_search_base %>
-ldap_id_use_start_tls   = <%= ldap_id_use_start_tls %>
-ldap_tls_reqcert        = demand
-ldap_tls_cacert         = <%= tlscacertificatefile %>
-cache_credentials       = true
-enumerate               = true
+# Original courtesy of John Hebron, 23-Oct-2012
+
+<% if @debug_level %>debug_level = <%= debug_level %><% end %>
+
+id_provider = <%= id_provider %>
+auth_provider = <%= auth_provider %>
+ldap_schema = <%= ldap_schema %>
+<% if @access_provider %>access_provider = <%= access_provider %><% end %>
+
+ldap_sasl_authid = <%= @ldap_sasl_authid %>
+ldap_krb5_keytab = /etc/krb5.keytab
+<% if @ldap_id_mapping %>ldap_id_mapping = <%= ldap_id_mapping %><% end %>
+
+
+<% if @krb_use_fast %>krb5_use_fast = <%= krb_use_fast %><% end %>
+<% if @krb5_renewable_lifetime %>krb5_renewable_lifetime = <%= krb5_renewable_lifetime %><% end %>
+<% if @krb5_renew_interval %>krb5_renew_interval = <%= krb5_renew_interval %><% end %>
+<% if @ldap_id_use_start_tls %>ldap_id_use_start_tls = <%= ldap_id_use_start_tls %><% end %>
+<% if @ldap_sasl_mech %>ldap_sasl_mech = <%= ldap_sasl_mech %><% end %>
+
+<% if @min_id %>min_id = <%= min_id %><% end %>
+<% if @max_id %>max_id = <%= max_id %><% end %>
+<% if @ldap_use_tokengroups %>ldap_use_tokengroups = <%= ldap_use_tokengroups %><% end %>
+
+<% if @autofs_provider %>autofs_provider = <%= autofs_provider %><% end %>
+<% if @entry_cache_autofs_timeout %>entry_cache_autofs_timeout = <%= entry_cache_autofs_timeout %><% end %>
+
+<% if @ldap_autofs_search_base %>ldap_autofs_search_base = <%= ldap_autofs_search_base %><% end %>
+<% if @ldap_autofs_map_object_class %>ldap_autofs_map_object_class = <%= ldap_autofs_map_object_class %><% end %>
+<% if @ldap_autofs_entry_object_class %>ldap_autofs_entry_object_class = <%= ldap_autofs_entry_object_class %><% end %>
+<% if @ldap_autofs_map_name %>ldap_autofs_map_name = <%= ldap_autofs_map_name %><% end %>
+<% if @ldap_autofs_entry_key %>ldap_autofs_entry_key = <%= ldap_autofs_entry_key %><% end %>
+<% if @ldap_autofs_entry_value %>ldap_autofs_entry_value = <%= ldap_autofs_entry_value %><% end %>
+
+# krb5_use_fast
+#   CentOS 5 = never; CentOS 6 = try
+#
+# krb5_renewable_lifetime
+#   Request a renewable ticket with a total lifetime, given as an integer
+#   immediately followed by a time unit.
+#   Default: not set, i.e. the TGT is not renewable
+#   The KDC may override this!
+#
+# krb5_renew_interval
+#   This option specifies how often the SSSD should poll to see if any of
+#   the user TGTs have gone beyond 50% of their current lifetime. If they
+#   have, SSSD will perform a TGT renewal on the user's behalf, extending
+#   the lifetime of the TGT.
+#
+# ldap_use_tokengroups
+#    we do not EVER want tokengroup uid/gid resolution!
+#    use the uidNumber/gidNumber attribs in AD
+#
+#    this option has no effect in SSSD <1.11 (i.e., on CentOS 6)
+#    but is critical for later versions

@@ -5,10 +5,14 @@ class sssd::params {
                         'sssd-tools', 'auth-client-config',
                         'autofs5', 'autofs5-ldap', ]
     }
+
     redhat, centos: {
       case $::lsbmajdistrelease {
-        6: { $pkg_list     = [ 'sssd', 'sssd-tools', 'libsss_autofs',
-                               'autofs', ] }
+        # CentOS 6.6 moved to SSSD 1.11-6 which eliminates
+        # the package "libsss_autofs"
+        #
+        # If, for some reason, you're running <= 6.5, add libsss_autofs here
+        6: { $pkg_list     = [ 'sssd', 'sssd-tools', 'autofs', ] }
         7: { $pkg_list     = [ 'sssd', 'sssd-tools', 'autofs', ] }
       }
     }
@@ -16,7 +20,7 @@ class sssd::params {
       case $::lsbmajdistrelease {
         17, 18: { $pkg_list     = [ 'sssd', 'sssd-tools', 'libsss_autofs',
                                     'autofs', ] }
-        19: { $pkg_list     = [ 'sssd', 'sssd-tools', 'autofs', ] }
+        19, 20: { $pkg_list     = [ 'sssd', 'sssd-tools', 'autofs', ] }
       }
     }
     default: {
