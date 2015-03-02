@@ -56,7 +56,7 @@ class sssd::config (
           context => '/files/etc/nsswitch.conf',
           changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] sss",
                       "set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[2] files",],
-          notify => [ Service[sssd], Service[autofs], ],
+          notify => [ Service[autofs], ],
         }
       }
       else {
@@ -64,7 +64,7 @@ class sssd::config (
           context => '/files/etc/nsswitch.conf',
           changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] files",
                       "rm /files/etc/nsswitch.conf/*[self::database = 'automount']/service[2]",],
-          notify => [ Service[sssd], Service[autofs], ],
+          notify => [ Service[autofs], ],
         }
       }
     }
