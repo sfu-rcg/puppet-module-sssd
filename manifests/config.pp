@@ -3,6 +3,7 @@ class sssd::config (
   $services,
   ) {
 
+#  $purge_sssd_template = sprintf('sssd/',regsubst($sssd::params::purge_sssd_file,'^(.*[\\\/])', '\1','G'),'.erb')
   file { '/etc/sssd':
     ensure  => directory,
     mode    => '0600',
@@ -43,7 +44,7 @@ class sssd::config (
       if member($services, 'pam') {
         exec { 'authconfig-enable-sssd':
           command => '/usr/sbin/authconfig --enablesssd --enablesssdauth --update',
-          unless  => '/usr/bin/grep automount /etc/nsswitch.conf |/usr/bin/grep sss',
+          unless  => '/usr/bin/grep automount /etc/nsswitch.conf | /usr/bin/grep sss',
         }
       } else {
         exec { 'authconfig-enable-sssd':
@@ -68,6 +69,12 @@ class sssd::config (
           notify => [ Service[autofs], ],
         }
       }
+      # Installs required file for purge_sssd depending on OS version
+      file { '$::sssd::params::purge_sssd_file':
+        ensure  => file,
+        content => template(sprintf('sssd/',regsubst($::sssd::params::purge_sssd_file,'^(.*[\\\/])', '\1','G'),'.erb')),
+        mode    => 0644,
+      }
     }
   }
-  }
+}

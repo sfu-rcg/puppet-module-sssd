@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+printf "Disabling SSSD and purging cache\n"
+printf " - Stopping SSSD\n"
+/sbin/service sssd stop > /dev/null 2>&1
+printf " - Purging SSSD cache\n"
+rm -rf /var/lib/sss/db/*
+
+printf " - Restarting SSSD\n"
+/sbin/service sssd start > /dev/null 2>&1
+
+sleep 10
+
+printf "Restarting autofs\n"
+/sbin/service autofs restart > /dev/null 2>&1

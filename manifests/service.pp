@@ -5,4 +5,10 @@ class sssd::service {
     hasstatus => true,
     subscribe => File['/etc/sssd/sssd.conf'],
   }
+  if ( $::osfamily == 'redhat' ) and ( $::operatingsystemversion >= 7 ) { 
+    service { 'purge_sssd':
+      ensure    => enabled,
+      enable    => true,
+    }
+  }
 }
