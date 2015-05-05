@@ -7,7 +7,7 @@ class sssd::service {
   }
   if ( $::osfamily == 'redhat' ) and ( $::operatingsystemversion >= 7 ) { 
     exec { 'systemctlreload':
-      command   => 'systemctl daemon-reload',
+      command   => '/usr/bin/systemctl daemon-reload',
       onlyif    => "test -f /etc/systemd/system/purge_sssd.service",
       subscribe => '/etc/systemd/system/purge_sssd.service',
     }
