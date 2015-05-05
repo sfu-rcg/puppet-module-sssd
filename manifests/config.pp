@@ -43,7 +43,7 @@ class sssd::config (
       if member($services, 'pam') {
         exec { 'authconfig-enable-sssd':
           command => '/usr/sbin/authconfig --enablesssd --enablesssdauth --update',
-          unless  => '/usr/bin/grep "automount:  sss files"',
+          unless  => '/usr/bin/grep "automount:  sss files" /etc/nsswitch.conf',
         }
       } else {
         exec { 'authconfig-enable-sssd':
