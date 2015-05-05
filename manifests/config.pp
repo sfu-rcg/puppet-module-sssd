@@ -3,7 +3,6 @@ class sssd::config (
   $services,
   ) {
 
-#  $purge_sssd_template = sprintf('sssd/',regsubst($sssd::params::purge_sssd_file,'^(.*[\\\/])', '\1','G'),'.erb')
   file { '/etc/sssd':
     ensure  => directory,
     mode    => '0600',
@@ -70,12 +69,7 @@ class sssd::config (
         }
       }
       # Installs required file for purge_sssd depending on OS version
-      file { '$::sssd::params::purge_sssd_file':
-        ensure  => file,
-        content => template(join([ 'sssd/', regsubst($name,'^(.*[\\\/])', '','G'), '.erb' ], '')),
-        #content => template(sprintf('sssd/',regsubst($::sssd::params::purge_sssd_file,'^(.*[\\\/])', '\1','G'),'.erb')),
-        mode    => 0644,
-      }
+      sssd::purge_sssd { $::sssd::params::purge_sssd_file: } 
     }
   }
 }
