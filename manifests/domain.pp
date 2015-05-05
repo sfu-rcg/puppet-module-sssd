@@ -1,6 +1,7 @@
 define sssd::domain (
 
   $debug_level              = undef,
+  $dyndns_update              = false,
   $autofs_debug_level       = undef,
   $krb_use_fast             = undef,
   $ldap_sasl_authid         = undef,
