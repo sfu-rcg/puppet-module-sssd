@@ -42,7 +42,8 @@ class sssd::config (
     redhat: {
       if member($services, 'pam') {
         exec { 'authconfig-enable-sssd':
-          command => '/usr/sbin/authconfig --enablesssd --enablesssdauth --update'
+          command => '/usr/sbin/authconfig --enablesssd --enablesssdauth --update',
+          onlyif  => '/usr/bin/grep automount /etc/nsswitch.conf |/usr/bin/grep sss',
         }
       } else {
         exec { 'authconfig-enable-sssd':
