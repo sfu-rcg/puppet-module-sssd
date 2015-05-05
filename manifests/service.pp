@@ -7,7 +7,6 @@ class sssd::service {
   }
   if ( $::osfamily == 'redhat' ) and ( $::operatingsystemversion >= 7 ) { 
     service { 'purge_sssd':
-      ensure    => enabled,
       enable    => true,
     }
   }
