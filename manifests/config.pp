@@ -72,7 +72,8 @@ class sssd::config (
       # Installs required file for purge_sssd depending on OS version
       file { '$::sssd::params::purge_sssd_file':
         ensure  => file,
-        content => template(sprintf('sssd/',regsubst($::sssd::params::purge_sssd_file,'^(.*[\\\/])', '\1','G'),'.erb')),
+        content => template(join([ 'sssd/', regsubst($::sssd::params::purge_sssd_file,'^(.*[\\\/])', '','G'), '.erb' ], '')),
+        #content => template(sprintf('sssd/',regsubst($::sssd::params::purge_sssd_file,'^(.*[\\\/])', '\1','G'),'.erb')),
         mode    => 0644,
       }
     }
