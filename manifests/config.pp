@@ -68,8 +68,6 @@ class sssd::config (
           notify => [ Service[autofs], ],
         }
       }
-      # Installs required file for purge_sssd depending on OS version
-      sssd::purge_sssd { $::sssd::params::purge_sssd_file: } 
     }
   }
 }
