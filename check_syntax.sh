@@ -1,1 +1,0 @@
-/var/sandbox/sssd/hooks/check_syntax.sh
