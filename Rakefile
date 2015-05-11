@@ -30,6 +30,7 @@ task :add_check do
   puts "Puppet syntax check hook added"
 end
 
+
 task :test => [:spec, :lint]
 
 task :default => :test
