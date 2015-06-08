@@ -52,13 +52,13 @@ define sssd::domain (
 
     fedora: {
       case $::operatingsystemmajrelease {
-        21: {
+        21, 22: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
             order   => 05,
             content => template("sssd/domain.erb"),
           }
-        } # 21
+        }
         default: {
           fail('Platform not supported.')
         }
