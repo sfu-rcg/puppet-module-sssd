@@ -36,7 +36,7 @@ define sssd::domain (
 
   case $::operatingsystem {
     centos, rhel: {
-      case $::lsbmajdistrelease {
+      case $::operatingsystemmajrelease {
         6, 7: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
@@ -47,26 +47,26 @@ define sssd::domain (
         default: {
           fail('Platform not supported.')
         }
-      } # lsbmajdistrelease
+      } # operatingsystemmajrelease
     } # centos, rhel
 
     fedora: {
-      case $::lsbmajdistrelease {
-        21: {
+      case $::operatingsystemmajrelease {
+        21, 22: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
             order   => 05,
             content => template("sssd/domain.erb"),
           }
-        } # 21
+        }
         default: {
           fail('Platform not supported.')
         }
-      } # lsbmajdistrelease
+      } # operatingsystemmajrelease
     } # fedora
 
     ubuntu: {
-      case $::lsbmajdistrelease {
+      case $::operatingsystemmajrelease {
         14: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
@@ -77,11 +77,11 @@ define sssd::domain (
         default: {
           fail('Platform not supported.')
         }
-      } # lsbmajdistrelease
+      } # operatingsystemmajrelease
     } # ubuntu
 
     debian: {
-      case $::lsbmajdistrelease {
+      case $::operatingsystemmajrelease {
         7: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
@@ -92,7 +92,7 @@ define sssd::domain (
         default: {
           fail('Platform not supported.')
         } # default
-      } # lsbmajdistrelease
+      } # operatingsystemmajrelease
     }
 
     default: {

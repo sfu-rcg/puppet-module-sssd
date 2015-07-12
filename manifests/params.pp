@@ -7,12 +7,12 @@ class sssd::params {
     }
 
     redhat, centos: {
-      case $::lsbmajdistrelease {
+      case $::operatingsystemmajrelease {
         # CentOS 6.6 moved to SSSD 1.11-6 which eliminates
         # the package "libsss_autofs"
         #
         # If, for some reason, you're running <= 6.5, add libsss_autofs here
-        6: { 
+        6: {
           $pkg_list        = [ 'sssd', 'sssd-tools', 'autofs' ]
           $purge_sssd_file = [ '/etc/rc.d/rc.local' ]
         }
@@ -23,10 +23,10 @@ class sssd::params {
       }
     }
     fedora: {
-      case $::lsbmajdistrelease {
+      case $::operatingsystemmajrelease {
         17, 18: { $pkg_list     = [ 'sssd', 'sssd-tools', 'libsss_autofs',
                                     'autofs', ] }
-        19, 20: { $pkg_list     = [ 'sssd', 'sssd-tools', 'autofs', ] }
+        19, 20, 21, 22: { $pkg_list     = [ 'sssd', 'sssd-tools', 'autofs', ] }
       }
     }
     default: {
