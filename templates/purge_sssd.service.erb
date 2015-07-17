@@ -1,13 +1,14 @@
 [Unit]
 Description=Purges SSSD cache on boot prior to autofs starting
-Before=multi-user.target sssd.service autofs.service systemd-user-sessions.service nss-user-lookup.target
-Wants=nss-user-lookup.target
+Before=multi-user.target systemd-user-sessions.service nfs-lock.service nfs-mountd.service nfs-idmapd.service nfs-server.service nfs-utils.service autofs.service sssd.service
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/root/purge_sssd start
-TimeoutSec=180
+TimeoutSec=90
 
 [Install]
 WantedBy=multi-user.target

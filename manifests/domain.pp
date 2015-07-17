@@ -40,7 +40,7 @@ define sssd::domain (
         6, 7: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
-            order   => 05,
+            order   => '05',
             content => template("sssd/domain.erb"),
           }
         } # 6/7
@@ -55,7 +55,7 @@ define sssd::domain (
         21, 22: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
-            order   => 05,
+            order   => '05',
             content => template("sssd/domain.erb"),
           }
         }
@@ -67,10 +67,10 @@ define sssd::domain (
 
     ubuntu: {
       case $::operatingsystemmajrelease {
-        14: {
+        14, 15: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
-            order   => 05,
+            order   => '05',
             content => template('sssd/domain.erb'),
           }
         } # 14
@@ -85,7 +85,7 @@ define sssd::domain (
         7: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
-            order   => 05,
+            order   => '05',
             content => template('sssd/domain.erb'),
           }
         } # 7
