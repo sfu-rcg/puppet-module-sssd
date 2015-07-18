@@ -4,6 +4,7 @@ class sssd::params {
       $pkg_list     = [ 'sssd', 'libnss-sss', 'libpam-sss',
                         'sssd-tools', 'auth-client-config',
                         'autofs5', 'autofs5-ldap', ]
+      $purge_sssd_file = [ '/etc/systemd/system/purge_sssd.service', '/root/purge_sssd' ]
     }
 
     redhat, centos: {
