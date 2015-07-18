@@ -67,7 +67,7 @@ define sssd::domain (
 
     ubuntu: {
       case $::operatingsystemmajrelease {
-        14, 15: {
+        /^14\.\d+$/, /^15\.\d+$/: {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
             order   => '05',
