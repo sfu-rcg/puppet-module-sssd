@@ -10,13 +10,13 @@ config_file_version = 2
 
 # If a back end is particularly slow you can raise this timeout here
 sbus_timeout = 30
-services = <%= services.join(',').chomp(',') %>
+services = <%= @services.join(',').chomp(',') %>
 
 # SSSD will not start if you do not configure any domains.
 # Add new domain configurations as [domain/<NAME>] sections, and
 # then add the list of domains (in the order you want them to be
 # queried) to the "domains" attribute below and uncomment it.
-domains = <%= domains.join(',').chomp(',') %>
+domains = <%= @domains.join(',').chomp(',') %>
 
 [nss]
 # The following prevents SSSD from searching for the root user/group in
@@ -38,13 +38,13 @@ reconnection_retries = 3
 [pam]
 reconnection_retries = 3
 
-<% if services.include? 'autofs' %>
+<% if @services.include? 'autofs' %>
 [autofs]
 # [autofs] must be declared if you intend to use it
 # even if there are no parameters under [autofs]
 
 
-<% if @autofs_debug_level %>debug_level = <%= autofs_debug_level %><% end %>
+<% if @autofs_debug_level %>debug_level = <%= @autofs_debug_level %><% end %>
 
 
 <% end %>

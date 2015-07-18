@@ -70,8 +70,10 @@ class sssd::config (
       }
     }
   }
-  # Installs required file for purge_sssd depending on OS version
-  sssd::purge_sssd { $::sssd::params::purge_sssd_file:
-    domain => $domains[0],
+  if $::sssd::params::purge_sssd_file {
+    # Installs required file for purge_sssd depending on OS version
+    sssd::purge_sssd { $::sssd::params::purge_sssd_file:
+      domain => $domains[0],
+    }
   }
 }

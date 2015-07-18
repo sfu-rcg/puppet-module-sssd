@@ -1,39 +1,39 @@
-[domain/<%= title %>]
+[domain/<%= @title %>]
 # Original courtesy of John Hebron, 23-Oct-2012
 
-<% if @debug_level %>debug_level = <%= debug_level %><% end %>
+<% if @debug_level %>debug_level = <%= @debug_level %><% end %>
 
-dyndns_update = <%= dyndns_update %>
-id_provider = <%= id_provider %>
-auth_provider = <%= auth_provider %>
-ldap_schema = <%= ldap_schema %>
-<% if @access_provider %>access_provider = <%= access_provider %><% end %>
+dyndns_update = <%= @dyndns_update %>
+id_provider = <%= @id_provider %>
+auth_provider = <%= @auth_provider %>
+ldap_schema = <%= @ldap_schema %>
+<% if @access_provider %>access_provider = <%= @access_provider %><% end %>
 
 ldap_sasl_authid = <%= @ldap_sasl_authid %>
 ldap_krb5_keytab = /etc/krb5.keytab
-<% if @ldap_id_mapping %>ldap_id_mapping = <%= ldap_id_mapping %><% end %>
+<% if @ldap_id_mapping %>ldap_id_mapping = <%= @ldap_id_mapping %><% end %>
 <% if @cache_credentials %>cache_credentials = <%= @cache_credentials %><% end %>
 
 
-<% if @krb_use_fast %>krb5_use_fast = <%= krb_use_fast %><% end %>
-<% if @krb5_renewable_lifetime %>krb5_renewable_lifetime = <%= krb5_renewable_lifetime %><% end %>
-<% if @krb5_renew_interval %>krb5_renew_interval = <%= krb5_renew_interval %><% end %>
-<% if @ldap_id_use_start_tls %>ldap_id_use_start_tls = <%= ldap_id_use_start_tls %><% end %>
-<% if @ldap_sasl_mech %>ldap_sasl_mech = <%= ldap_sasl_mech %><% end %>
+<% if @krb_use_fast %>krb5_use_fast = <%= @krb_use_fast %><% end %>
+<% if @krb5_renewable_lifetime %>krb5_renewable_lifetime = <%= @krb5_renewable_lifetime %><% end %>
+<% if @krb5_renew_interval %>krb5_renew_interval = <%= @krb5_renew_interval %><% end %>
+<% if @ldap_id_use_start_tls %>ldap_id_use_start_tls = <%= @ldap_id_use_start_tls %><% end %>
+<% if @ldap_sasl_mech %>ldap_sasl_mech = <%= @ldap_sasl_mech %><% end %>
 
-<% if @min_id %>min_id = <%= min_id %><% end %>
-<% if @max_id %>max_id = <%= max_id %><% end %>
-<% if @ldap_use_tokengroups %>ldap_use_tokengroups = <%= ldap_use_tokengroups %><% end %>
+<% if @min_id %>min_id = <%= @min_id %><% end %>
+<% if @max_id %>max_id = <%= @max_id %><% end %>
+<% if @ldap_use_tokengroups %>ldap_use_tokengroups = <%= @ldap_use_tokengroups %><% end %>
 
-<% if @autofs_provider %>autofs_provider = <%= autofs_provider %><% end %>
-<% if @entry_cache_autofs_timeout %>entry_cache_autofs_timeout = <%= entry_cache_autofs_timeout %><% end %>
+<% if @autofs_provider %>autofs_provider = <%= @autofs_provider %><% end %>
+<% if @entry_cache_autofs_timeout %>entry_cache_autofs_timeout = <%= @entry_cache_autofs_timeout %><% end %>
 
-<% if @ldap_autofs_search_base %>ldap_autofs_search_base = <%= ldap_autofs_search_base %><% end %>
-<% if @ldap_autofs_map_object_class %>ldap_autofs_map_object_class = <%= ldap_autofs_map_object_class %><% end %>
-<% if @ldap_autofs_entry_object_class %>ldap_autofs_entry_object_class = <%= ldap_autofs_entry_object_class %><% end %>
-<% if @ldap_autofs_map_name %>ldap_autofs_map_name = <%= ldap_autofs_map_name %><% end %>
-<% if @ldap_autofs_entry_key %>ldap_autofs_entry_key = <%= ldap_autofs_entry_key %><% end %>
-<% if @ldap_autofs_entry_value %>ldap_autofs_entry_value = <%= ldap_autofs_entry_value %><% end %>
+<% if @ldap_autofs_search_base %>ldap_autofs_search_base = <%= @ldap_autofs_search_base %><% end %>
+<% if @ldap_autofs_map_object_class %>ldap_autofs_map_object_class = <%= @ldap_autofs_map_object_class %><% end %>
+<% if @ldap_autofs_entry_object_class %>ldap_autofs_entry_object_class = <%= @ldap_autofs_entry_object_class %><% end %>
+<% if @ldap_autofs_map_name %>ldap_autofs_map_name = <%= @ldap_autofs_map_name %><% end %>
+<% if @ldap_autofs_entry_key %>ldap_autofs_entry_key = <%= @ldap_autofs_entry_key %><% end %>
+<% if @ldap_autofs_entry_value %>ldap_autofs_entry_value = <%= @ldap_autofs_entry_value %><% end %>
 
 # krb5_use_fast
 #   CentOS 5 = never; CentOS 6 = try
