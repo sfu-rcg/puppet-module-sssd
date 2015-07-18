@@ -41,16 +41,18 @@ class sssd::config (
       if member($services, 'autofs') {
         augeas { 'nsswitch.conf':
           context => '/files/etc/nsswitch.conf',
-          changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] sss",
-                      "set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[2] files",],
+          changes => ["defnode target \"/files/etc/nsswitch.conf/database[. = 'automount']/\" \"automount\"",
+                      "set \$target/service[1] sss",
+                      "set \$target/service[2] files",],
           notify  => [ Service[autofs], ],
         }
       }
       else {
         augeas { 'nsswitch.conf':
           context => '/files/etc/nsswitch.conf',
-          changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] files",
-                      "rm /files/etc/nsswitch.conf/*[self::database = 'automount']/service[2]",],
+          changes => ["defnode target \"/files/etc/nsswitch.conf/database[. = 'automount']/\" \"automount\"",
+                      "set \$target/service[1] files",
+                      "rm \$target/service[2]",],
           notify  => [ Service[autofs], ],
         }
       }
