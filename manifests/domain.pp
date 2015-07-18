@@ -34,7 +34,10 @@ define sssd::domain (
   # Workaround for foreman bug in 1.6.2 host.shortname returns fqdn, we need the shortname
   # Therefore we override this variable if it is not set via hiera, manifest or foreman(when fixed)
   if ! $ldap_sasl_authid {
-    $ldap_sasl_authid               = upcase($::hostname) + "\$@${name}"
+    $ldap_sasl_authid_fix = "upcase(${::hostname})\$@${name}"
+  }
+  else {
+    $ldap_sasl_authid_fix = $ldap_sasl_authid
   }
   
   #notify{"SASL binding to AD as $ldap_sasl_authid":;}
