@@ -103,7 +103,7 @@ class sssd::config (
   if $::sssd::params::purge_sssd_file {
     # Installs required file for purge_sssd depending on OS version
     $domainhash = { domain => $domains[0] }
-    create_resource(sssd::purge_sssd, $::sssd::params::purge_sssd_file, $domainhash)
+    create_resources(sssd::purge_sssd, $::sssd::params::purge_sssd_file, $domainhash)
     #sssd::purge_sssd { $::sssd::params::purge_sssd_file:
     #  domain => $domains[0],
     #}
