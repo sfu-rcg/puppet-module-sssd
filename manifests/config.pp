@@ -42,6 +42,7 @@ class sssd::config (
 	          notify  => Exec['update-sssd-profile'],
           }
         }
+      }
       exec { 'update-sssd-profile':
         command     => '/usr/sbin/auth-client-config -a -p sss',
        	require     => File[ '/etc/auth-client-config/profile.d/sss' ],
@@ -101,8 +102,10 @@ class sssd::config (
   }
   if $::sssd::params::purge_sssd_file {
     # Installs required file for purge_sssd depending on OS version
-    sssd::purge_sssd { $::sssd::params::purge_sssd_file:
-      domain => $domains[0],
-    }
+    $domainhash = { domain => $domains[0] }
+    create_resource(sssd::purge_sssd, $::sssd::params::purge_sssd_file, $domainhash)
+    #sssd::purge_sssd { $::sssd::params::purge_sssd_file:
+    #  domain => $domains[0],
+    #}
   }
 }
