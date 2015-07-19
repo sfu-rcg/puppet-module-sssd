@@ -5,16 +5,14 @@ class sssd::params {
                             'sssd-tools', 'auth-client-config',
                             'autofs5', 'autofs5-ldap',
                           ]
-      $purge_sssd_file  = [ 
-                           { 
-                             purgefile => '/etc/systemd/system/purge_sssd.service', 
-                             chmod => '0700' 
-                           },
-                           {
-                             purgefile => '/root/purge_sssd', 
-                             chmod => '0622' 
-                           } 
-                         ]
+      $purge_sssd_service = { 
+                              purgefile => '/etc/systemd/system/purge_sssd.service', 
+                              chmod => '0700' 
+                            }
+      $purge_sssd_file    = {
+                              purgefile => '/root/purge_sssd', 
+                              chmod => '0622' 
+                            } 
     }
 
     redhat, centos: {
@@ -24,26 +22,22 @@ class sssd::params {
         #
         # If, for some reason, you're running <= 6.5, add libsss_autofs here
         6: {
-          $pkg_list         = [ 'sssd', 'sssd-tools', 'autofs' ]
-          $purge_sssd_file  = [ 
-                                { 
+          $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs' ]
+          $purge_sssd_file    = { 
                                   purgefile => '/etc/rc.d/rc.local', 
                                   chmod => '0700' 
                                 }
-                              ]
         }
         7: {
-          $pkg_list         = [ 'sssd', 'sssd-tools', 'autofs' ]
-          $purge_sssd_file  = [ 
-                                { 
+          $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs' ]
+          $purge_sssd_service = { 
                                   purgefile => '/etc/systemd/system/purge_sssd.service', 
                                   chmod => '0700' 
-                                },
-                                {
+                                }
+          $purge_sssd_file    = {
                                   purgefile => '/root/purge_sssd', 
                                   chmod => '0622' 
                                 } 
-                              ]
         }
       }
     }
