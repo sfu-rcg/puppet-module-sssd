@@ -5,7 +5,7 @@ class sssd::purge_sssd_service {
     exec { 'systemctlreload':
       command     => 'systemctl daemon-reload',
       subscribe   => Sssd::Purge_sssd['/etc/systemd/system/purge_sssd.service'],
-      path        => [ '/bin/', '/usr/bin/' ]
+      path        => [ '/bin/', '/usr/bin/' ],
       refreshonly => true,
     }
     service { 'purge_sssd':
