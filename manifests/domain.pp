@@ -35,7 +35,8 @@ define sssd::domain (
   # Therefore we override this variable if it is not set via hiera, manifest or foreman(when fixed)
   if ! $ldap_sasl_authid {
     $hostnameupcase       = upcase($::hostname)
-    $ldap_sasl_authid_fix = "${hostnameupcase}\$@${name}"
+    $domainnameupcase     = upcase($name)
+    $ldap_sasl_authid_fix = "${hostnameupcase}\$@${domainnameupcase}"
   }
   else {
     $ldap_sasl_authid_fix = $ldap_sasl_authid
