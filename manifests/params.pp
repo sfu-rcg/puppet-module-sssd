@@ -49,14 +49,32 @@ class sssd::params {
     fedora: {
       case $::operatingsystemmajrelease {
         17, 18: {
-               $pkg_list        = [ 'sssd', 'sssd-tools', 'libsss_autofs', 'autofs', ]
-               $purge_sssd_file = [ '/etc/systemd/system/purge_sssd.service', '/root/purge_sssd' ]
+          $pkg_list        = [ 'sssd', 'sssd-tools', 'libsss_autofs', 'autofs', ]
+          $purge_sssd_service = {
+                                  '/etc/systemd/system/purge_sssd.service' => {
+                                    chmod => '0622'
+                                  }
+                                }
+          $purge_sssd_file    = {
+                                  '/root/purge_sssd' => {
+                                    chmod => '0700'
+                                  }
+                                }
 
-             }
+        }
         19, 20, 21, 22: {
-               $pkg_list        = [ 'sssd', 'sssd-tools', 'autofs', ]
-               $purge_sssd_file = [ '/etc/systemd/system/purge_sssd.service', '/root/purge_sssd' ]
-             }
+          $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs', ]
+          $purge_sssd_service = {
+                                  '/etc/systemd/system/purge_sssd.service' => {
+                                    chmod => '0622'
+                                  }
+                                }
+          $purge_sssd_file    = {
+                                  '/root/purge_sssd' => {
+                                    chmod => '0700'
+                                  }
+                                }
+        }
       }
     }
     default: {
