@@ -7,7 +7,7 @@ class sssd::params {
                           ]
       $purge_sssd_service = {
                               '/etc/systemd/system/purge_sssd.service' => {
-                                chmod => '0622'
+                                chmod => '0644'
                               }
                             }
       $purge_sssd_file    = {
@@ -35,7 +35,7 @@ class sssd::params {
           $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs' ]
           $purge_sssd_service = {
                                   '/etc/systemd/system/purge_sssd.service' => {
-                                    chmod => '0622'
+                                    chmod => '0644'
                                   }
                                 }
           $purge_sssd_file    = {
@@ -52,7 +52,7 @@ class sssd::params {
           $pkg_list        = [ 'sssd', 'sssd-tools', 'libsss_autofs', 'autofs', ]
           $purge_sssd_service = {
                                   '/etc/systemd/system/purge_sssd.service' => {
-                                    chmod => '0622'
+                                    chmod => '0644'
                                   }
                                 }
           $purge_sssd_file    = {
@@ -66,7 +66,7 @@ class sssd::params {
           $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs', ]
           $purge_sssd_service = {
                                   '/etc/systemd/system/purge_sssd.service' => {
-                                    chmod => '0622'
+                                    chmod => '0644'
                                   }
                                 }
           $purge_sssd_file    = {
