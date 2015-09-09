@@ -23,7 +23,7 @@ class sssd::params {
         # the package "libsss_autofs"
         #
         # If, for some reason, you're running <= 6.5, add libsss_autofs here
-        6: {
+        '6': {
           $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs' ]
           $purge_sssd_file    = { 
                                   '/etc/rc.d/rc.local' => {
@@ -31,7 +31,7 @@ class sssd::params {
                                   }
                                 }
         }
-        7: {
+        '7': {
           $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs' ]
           $purge_sssd_service = {
                                   '/etc/systemd/system/purge_sssd.service' => {
@@ -48,7 +48,7 @@ class sssd::params {
     }
     'fedora': {
       case $::operatingsystemmajrelease {
-        17, 18: {
+        '17', '18': {
           $pkg_list        = [ 'sssd', 'sssd-tools', 'libsss_autofs', 'autofs', ]
           $purge_sssd_service = {
                                   '/etc/systemd/system/purge_sssd.service' => {
@@ -62,7 +62,7 @@ class sssd::params {
                                 }
 
         }
-        19, 20, 21, 22: {
+        '19', '20', '21', '22': {
           $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs', ]
           $purge_sssd_service = {
                                   '/etc/systemd/system/purge_sssd.service' => {

@@ -47,7 +47,7 @@ define sssd::domain (
   case $::operatingsystem {
     'centos', 'rhel': {
       case $::operatingsystemmajrelease {
-        6, 7: {
+        '6', '7': {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
             order   => '05',
@@ -62,7 +62,7 @@ define sssd::domain (
 
     'fedora': {
       case $::operatingsystemmajrelease {
-        21, 22: {
+        '21', '22': {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
             order   => '05',
@@ -92,7 +92,7 @@ define sssd::domain (
 
     'debian': {
       case $::operatingsystemmajrelease {
-        7: {
+        '7': {
           concat::fragment { "sssd_domain_${name}":
             target  => '/etc/sssd/sssd.conf',
             order   => '05',

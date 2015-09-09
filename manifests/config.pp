@@ -48,8 +48,8 @@ class sssd::config (
        	require     => File[ '/etc/auth-client-config/profile.d/sss' ],
        	refreshonly => true,
       }
-      include autofs
       if member($services, 'autofs') {
+        include autofs
         augeas { 'nsswitch.conf':
           context => '/files/etc/nsswitch.conf',
           changes => ["defnode target \"/files/etc/nsswitch.conf/database[. = 'automount']/\" \"automount\"",
@@ -81,8 +81,8 @@ class sssd::config (
         }
      }
 
-      include autofs
       if member($services, 'autofs') {
+        include autofs
         augeas { 'nsswitch.conf':
           context => '/files/etc/nsswitch.conf',
           changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] sss",
