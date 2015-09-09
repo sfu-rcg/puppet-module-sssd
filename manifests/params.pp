@@ -1,6 +1,6 @@
 class sssd::params {
   case $::operatingsystem {
-    debian, ubuntu: {
+    'debian', 'ubuntu': {
       $pkg_list         = [ 'sssd', 'libnss-sss', 'libpam-sss',
                             'sssd-tools', 'auth-client-config',
                             'autofs5', 'autofs5-ldap',
@@ -17,7 +17,7 @@ class sssd::params {
                             }
     }
 
-    redhat, centos: {
+    'redhat', 'centos': {
       case $::operatingsystemmajrelease {
         # CentOS 6.6 moved to SSSD 1.11-6 which eliminates
         # the package "libsss_autofs"
@@ -46,7 +46,7 @@ class sssd::params {
         }
       }
     }
-    fedora: {
+    'fedora': {
       case $::operatingsystemmajrelease {
         17, 18: {
           $pkg_list        = [ 'sssd', 'sssd-tools', 'libsss_autofs', 'autofs', ]

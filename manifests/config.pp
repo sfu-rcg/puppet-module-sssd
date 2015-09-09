@@ -24,7 +24,7 @@ class sssd::config (
   }
 
   case $::osfamily {
-    debian: {
+    'debian': {
       # SSSD automount retrieval in autofs 5.0.7 is busted in Ubuntu
       # see https://bugs.launchpad.net/linuxmint/+bug/1081489 for a fix
       case $::operatingsystemmajrelease {
@@ -69,7 +69,7 @@ class sssd::config (
       }
     }
 
-    redhat: {
+    'redhat': {
       if member($services, 'pam') {
         exec { 'authconfig-enable-sssd':
           command => '/usr/sbin/authconfig --enablesssd --enablesssdauth --update',

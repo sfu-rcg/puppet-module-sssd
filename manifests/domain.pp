@@ -45,7 +45,7 @@ define sssd::domain (
   #notify{"SASL binding to AD as $ldap_sasl_authid":;}
 
   case $::operatingsystem {
-    centos, rhel: {
+    'centos', 'rhel': {
       case $::operatingsystemmajrelease {
         6, 7: {
           concat::fragment { "sssd_domain_${name}":
@@ -60,7 +60,7 @@ define sssd::domain (
       } # operatingsystemmajrelease
     } # centos, rhel
 
-    fedora: {
+    'fedora': {
       case $::operatingsystemmajrelease {
         21, 22: {
           concat::fragment { "sssd_domain_${name}":
@@ -75,7 +75,7 @@ define sssd::domain (
       } # operatingsystemmajrelease
     } # fedora
 
-    ubuntu: {
+    'ubuntu': {
       case $::operatingsystemmajrelease {
         /^14\.\d+$/, /^15\.\d+$/: {
           concat::fragment { "sssd_domain_${name}":
@@ -90,7 +90,7 @@ define sssd::domain (
       } # operatingsystemmajrelease
     } # ubuntu
 
-    debian: {
+    'debian': {
       case $::operatingsystemmajrelease {
         7: {
           concat::fragment { "sssd_domain_${name}":
