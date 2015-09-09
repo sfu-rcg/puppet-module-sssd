@@ -1,20 +1,30 @@
 class sssd::params {
   case $::operatingsystem {
-    'debian', 'ubuntu': {
+    'debian': {
       $pkg_list         = [ 'sssd', 'libnss-sss', 'libpam-sss',
                             'sssd-tools', 'auth-client-config',
                             'autofs5', 'autofs5-ldap',
                           ]
-      $purge_sssd_service = {
-                              '/etc/systemd/system/purge_sssd.service' => {
-                                chmod => '0644'
-                              }
-                            }
-      $purge_sssd_file    = {
-                              '/root/purge_sssd' => {
-                                chmod => '0700'
-                              }
-                            }
+    }
+    'ubuntu': {
+      $pkg_list         = [ 'sssd', 'libnss-sss', 'libpam-sss',
+                            'sssd-tools', 'auth-client-config',
+                            'autofs5', 'autofs5-ldap',
+                          ]
+      case $::operatingsystemmajrelease {
+        /^15\.\d+/: {
+          $purge_sssd_service = {
+                                  '/etc/systemd/system/purge_sssd.service' => {
+                                    chmod => '0644'
+                                  }
+                                }
+          $purge_sssd_file    = {
+                                  '/root/purge_sssd' => {
+                                    chmod => '0700'
+                                  }
+                                }
+        }
+      }
     }
 
     'redhat', 'centos': {
