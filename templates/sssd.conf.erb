@@ -25,6 +25,8 @@ domains = <%= @domains.join(',').chomp(',') %>
 filter_groups = root
 filter_users = root
 reconnection_retries = 3
+vetoed_shells = /bin/csh
+shell_fallback = /bin/bash
 
 # The entry_cache_timeout indicates the number of seconds to retain an
 # entry in cache before it is considered stale and must block to refresh.
