@@ -1,14 +1,15 @@
 [domain/<%= @title %>]
-
 <% if not @access_provider.nil? %>access_provider = <%= @access_provider %><% end %>
 auth_provider = <%= @auth_provider %>
 <% if not @autofs_provider.nil? %>autofs_provider = <%= @autofs_provider %><% end %>
 <% if not @cache_credentials.nil? %>cache_credentials = <%= @cache_credentials %><% end %>
+<% if not @chpass_provider.nil? %>chpass_provider = <%= @chpass_provider %><% end %>
 <% if not @debug_level.nil? %>debug_level = <%= @debug_level %><% end %>
 dyndns_update = <%= @dyndns_update %>
 <% if not @entry_cache_autofs_timeout.nil? %>entry_cache_autofs_timeout = <%= @entry_cache_autofs_timeout %><% end %>
 <% if not @enumerate.nil? %>enumerate = <%= @enumerate %><% end %>
 id_provider = <%= @id_provider %>
+<% if not @krb5_canonicalize.nil? %>krb5_canonicalize = <%= @krb5_canonicalize %><% end %>
 <% if not @krb5_renew_interval.nil? %>krb5_renew_interval = <%= @krb5_renew_interval %><% end %>
 <% if not @krb5_renewable_lifetime.nil? %>krb5_renewable_lifetime = <%= @krb5_renewable_lifetime %><% end %>
 <% if not @krb_use_fast.nil? %>krb5_use_fast = <%= @krb_use_fast %><% end %>

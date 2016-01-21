@@ -4,12 +4,14 @@ define sssd::domain (
   $auth_provider                  = undef, # required
   $autofs_debug_level             = undef,
   $autofs_provider                = undef,
+  $chpass_provider                = undef,
   $cache_credentials              = undef,
   $debug_level                    = undef,
   $dyndns_update                  = false,
   $entry_cache_autofs_timeout     = undef,
   $enumerate                      = undef,
   $id_provider                    = undef, # required
+  $krb5_canonicalize              = undef,
   $krb5_renew_interval            = undef,
   $krb5_renewable_lifetime        = undef,
   $krb_use_fast                   = undef,
