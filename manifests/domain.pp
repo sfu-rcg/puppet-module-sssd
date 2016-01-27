@@ -32,7 +32,8 @@ define sssd::domain (
   $ldap_use_tokengroups           = undef, # for murmurhash3, not POSIX GIDs
   $max_id                         = undef,
   $min_id                         = undef,
-  $use_fqdn                       = undef,
+  $min_id                         = undef,
+  $sudo_provider                  = undef,
   ) {
 
   # Workaround for foreman bug in 1.6.2 host.shortname returns fqdn, we need the shortname

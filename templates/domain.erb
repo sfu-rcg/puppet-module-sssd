@@ -28,6 +28,11 @@ ldap_schema = <%= @ldap_schema %>
 <% if not @ldap_use_tokengroups.nil? %>ldap_use_tokengroups = <%= @ldap_use_tokengroups %><% end %>
 <% if not @max_id.nil? %>max_id = <%= @max_id %><% end %>
 <% if not @min_id.nil? %>min_id = <%= @min_id %><% end %>
+<% if not @sudo_provider.nil? %>
+# This solves this issue in ubuntu if your not using ldap for sudo
+# https://bugs.launchpad.net/ubuntu/+source/sssd/+bug/1249777
+sudo_provider = <%= @sudo_provider %>
+<% end %>
 
 ### Notes ###
 # krb5_use_fast
