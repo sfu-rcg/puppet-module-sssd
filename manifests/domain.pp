@@ -32,7 +32,6 @@ define sssd::domain (
   $ldap_use_tokengroups           = undef, # for murmurhash3, not POSIX GIDs
   $max_id                         = undef,
   $min_id                         = undef,
-  $min_id                         = undef,
   $sudo_provider                  = undef,
   ) {
 
