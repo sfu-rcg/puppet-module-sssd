@@ -12,7 +12,7 @@ class sssd::params {
                             'autofs5', 'autofs5-ldap',
                           ]
       case $::operatingsystemmajrelease {
-        /^15\.\d+/: {
+        /^15\.\d+/, /^16\.\d+/: {
           $purge_sssd_service = {
                                   '/etc/systemd/system/purge_sssd.service' => {
                                     chmod => '0644'

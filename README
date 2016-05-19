@@ -5,13 +5,13 @@ Original module Copyright (C) 2011 UNYONSYS SARL
 Bruno Leon <bruno.leon@unyonsys.com>
 https://github.com/Unyonsys/puppet-module-sssd
 
-Additional patchwork from https://github.com/sfu-rcg/puppet-module-sssd
+Additional patchwork from https://github.com/sfu-rcg/puppet-sssd
 
 This module is focused on providing Active Directory/LDAP/Kerberos ID and auth services.
 
 Dependencies
 ------------
-* Concat: git://github.com/ripienaar/puppet-concat.git
+* Concat: git://github.com/puppetlabs/puppetlabs-concat.git
 * Augeas
 
 
