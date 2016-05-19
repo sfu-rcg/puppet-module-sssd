@@ -1,3 +1,4 @@
+#
 class sssd::params {
   case $::operatingsystem {
     'debian': {
@@ -7,9 +8,9 @@ class sssd::params {
                           ]
     }
     'ubuntu': {
-      $pkg_list         = [ 'sssd', 'libnss-sss', 'libpam-sss',
-                            'sssd-tools', 'auth-client-config',
-                            'autofs5', 'autofs5-ldap',
+      $pkg_list         = [ 'sssd', 'libnss-sss', 'libpam-sss', 'libpam-krb5',
+                            'sssd-tools', 'auth-client-config', 'autofs5',
+                            'autofs5-ldap',
                           ]
       case $::operatingsystemmajrelease {
         /^15\.\d+/: {
@@ -35,9 +36,9 @@ class sssd::params {
         # If, for some reason, you're running <= 6.5, add libsss_autofs here
         '6': {
           $pkg_list           = [ 'sssd', 'sssd-tools', 'autofs' ]
-          $purge_sssd_file    = { 
+          $purge_sssd_file    = {
                                   '/etc/rc.d/rc.local' => {
-                                    chmod => '0700' 
+                                    chmod => '0700'
                                   }
                                 }
         }
