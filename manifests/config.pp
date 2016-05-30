@@ -28,7 +28,7 @@ class sssd::config (
       # SSSD automount retrieval in autofs 5.0.7 is busted in Ubuntu
       # see https://bugs.launchpad.net/linuxmint/+bug/1081489 for a fix
       case $::operatingsystemmajrelease {
-        /^15\.\d+/: { 
+        /^16\.\d+/: {
           file { '/etc/auth-client-config/profile.d/sss':
 	          ensure  => file,
 	          content => template('sssd/sss-ubuntu15.erb'),
@@ -36,11 +36,7 @@ class sssd::config (
           }
         }
         default: {
-          file { '/etc/auth-client-config/profile.d/sss':
-	          ensure  => file,
-	          content => template('sssd/sss.erb'),
-	          notify  => Exec['update-sssd-profile'],
-          }
+          fail('Platform not supported.')
         }
       }
       exec { 'update-sssd-profile':
