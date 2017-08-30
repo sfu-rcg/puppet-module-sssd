@@ -29,6 +29,7 @@ define sssd::domain (
   $ldap_access_order              = undef,
   $ldap_account_expire_policy     = undef,
   $ldap_schema                    = undef,
+  $sudo_provider                  = undef,
   ) {
 
   # Workaround for foreman bug in 1.6.2 host.shortname returns fqdn, we need the shortname
