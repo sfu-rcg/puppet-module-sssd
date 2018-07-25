@@ -3,7 +3,7 @@ define sssd::domain (
   $dyndns_update                  = false,
   $autofs_debug_level             = undef,
   $krb_use_fast                   = undef,
-  $ldap_sasl_authid               = undef, 
+  $ldap_sasl_authid               = undef,
   $krb5_renewable_lifetime        = undef,
   $krb5_renew_interval 	          = undef,
   $entry_cache_autofs_timeout     = undef,
@@ -42,11 +42,11 @@ define sssd::domain (
   else {
     $ldap_sasl_authid_fix = $ldap_sasl_authid
   }
-  
+
   #notify{"SASL binding to AD as $ldap_sasl_authid":;}
 
   case $::operatingsystem {
-    centos, rhel: {
+    centos, redhat: {
       case $::operatingsystemmajrelease {
         6, 7: {
           concat::fragment { "sssd_domain_${name}":
@@ -59,7 +59,7 @@ define sssd::domain (
           fail('Platform not supported.')
         }
       } # operatingsystemmajrelease
-    } # centos, rhel
+    } # centos, redhat
 
     fedora: {
       case $::operatingsystemmajrelease {
