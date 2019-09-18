@@ -78,22 +78,22 @@ class sssd::config (
      }
 
       include autofs
-      if member($services, 'autofs') {
-        augeas { 'nsswitch.conf':
-          context => '/files/etc/nsswitch.conf',
-          changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] sss",
-                      "set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[2] files",],
-          notify  => [ Service[autofs], ],
-        }
-      }
-      else {
-        augeas { 'nsswitch.conf':
-          context => '/files/etc/nsswitch.conf',
-          changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] files",
-                      "rm /files/etc/nsswitch.conf/*[self::database = 'automount']/service[2]",],
-          notify  => [ Service[autofs], ],
-        }
-      }
+      # if member($services, 'autofs') {
+      #   augeas { 'nsswitch.conf':
+      #     context => '/files/etc/nsswitch.conf',
+      #     changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] sss",
+      #                 "set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[2] files",],
+      #     notify  => [ Service[autofs], ],
+      #   }
+      # }
+      # else {
+      #   augeas { 'nsswitch.conf':
+      #     context => '/files/etc/nsswitch.conf',
+      #     changes => ["set /files/etc/nsswitch.conf/*[self::database = 'automount']/service[1] files",
+      #                 "rm /files/etc/nsswitch.conf/*[self::database = 'automount']/service[2]",],
+      #     notify  => [ Service[autofs], ],
+      #   }
+      # }
     }
   }
   if $::sssd::params::purge_sssd_file {
