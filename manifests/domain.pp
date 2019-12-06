@@ -1,6 +1,7 @@
 define sssd::domain (
   $debug_level                    = undef,
   $dyndns_update                  = false,
+  $entry_cache_timeout            = 5400, # SSSD default (seconds)
   $autofs_debug_level             = undef,
   $krb_use_fast                   = undef,
   $ldap_sasl_authid               = undef,
